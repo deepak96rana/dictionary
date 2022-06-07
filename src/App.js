@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useState } from "react";
+
+import words from './wods.js';
 
 function App() {
+
+ 
+  const [data,setData] = useState(words);
+  const changeHandler = (e)=>{
+  
+    setTimeout(()=>{
+      let filteredWord = words.filter((w)=>{return w.startsWith(e.target.value)});
+      console.log("word :  "+filteredWord);
+      setData(filteredWord);
+      
+    })
+   
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <input type="text" onChange={changeHandler} />
+       {
+       data &&  data.map((dta)=>{
+         return  <div>
+            <p>{dta}</p>
+            </div>
+       })
+      } 
+     
     </div>
   );
 }
